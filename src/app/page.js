@@ -1,101 +1,160 @@
-import Image from "next/image";
+// "use client";
+// import { useState } from "react";
+// import { motion } from "framer-motion";
+
+// export default function Home() {
+//   const [noPosition, setNoPosition] = useState({ left: "80%", top: "50%" });
+//   const [showAccepted, setShowAccepted] = useState(false);
+//   const [showDenied, setShowDenied] = useState(false);
+
+//   const handleMouseEnter = () => {
+//     const newLeft = Math.random() * 200 + 100;
+//     const newTop = Math.random() * 200 + 100;
+//     setNoPosition({ left: `${newLeft}%`, top: `${newTop}%` });
+//   };
+
+//   const handleNoClick = () => setShowDenied(true);
+//   const handleYesClick = () => {
+//     setShowAccepted(true);
+//     alert("I love you too!");
+//   };
+
+//   return (
+//     <main className="relative flex flex-col items-center justify-center h-screen bg-pink-100 overflow-hidden">
+//       <img src="/grass.gif" alt="grass background" className="absolute bottom-0 left-0 w-full" />
+//       <motion.img
+//         src="/bear-walk.gif"
+//         alt="walking bear"
+//         className="absolute bottom-0"
+//         animate={{ x: [0, 1000] }}
+//         transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+//       />
+//       {!showAccepted && !showDenied && (
+//         <div className="text-center">
+//           <h1 className="text-2xl font-bold mb-6">Do you love me?</h1>
+//           <div className="flex gap-6 relative justify-center">
+//             <motion.button
+//               className="bg-red-400 text-white px-6 py-2 mr-5 rounded-lg text-lg shadow-md hover:bg-red-500 transition"
+//               onClick={handleYesClick}
+//             >Yes</motion.button>
+//             <motion.button
+//               className="bg-green-500 text-white px-6 ml-5 py-2 rounded-lg text-lg shadow-md absolute"
+//               onMouseEnter={handleMouseEnter}
+//               onClick={handleNoClick}
+//               animate={{ left: noPosition.left, top: noPosition.top }}
+//               transition={{ type: "spring", stiffness: 200, damping: 5 }}
+//               style={{ transform: "translate(-50%, -50%)" }}
+//             >No</motion.button>
+//           </div>
+//         </div>
+//       )}
+//       {showAccepted && (
+//         <div className="text-center">
+//           <img src="/accepted-image.jpg" alt="accepted" className="w-48 mx-auto" />
+//           <p className="text-lg font-semibold mt-4 text-green-600">คุณตอบ Yes แล้ว! ❤️</p>
+//         </div>
+//       )}
+//       {showDenied && (
+//         <div className="text-center">
+//           <img src="/denied-image.jpg" alt="denied" className="w-48 mx-auto" />
+//           <p className="text-lg font-semibold mt-4 text-red-600">ทำไมต้องปฏิเสธล่ะ! 😢</p>
+//         </div>
+//       )}
+//       <footer className="footer text-gray-600 py-4 absolute bottom-0 w-full text-center">
+//       </footer>
+//     </main>
+//   );
+// }
+
+"use client";
+import { useState } from "react";
+import { motion } from "framer-motion";
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const acceptedImages = [
+    "/bear/accepted/1.gif",
+    "/bear/accepted/2.gif",
+    "/bear/accepted/3.gif",
+    "/bear/accepted/4.gif"
+  ];
+  const deniedImages = [
+    "/bear/denied/1.gif",
+    "/bear/denied/2.gif",
+    "/bear/denied/3.gif"
+  ];
+  const randomAcceptedImage = acceptedImages[Math.floor(Math.random() * acceptedImages.length)];
+  const randomDeniedImage = deniedImages[Math.floor(Math.random() * deniedImages.length)];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const [noPosition, setNoPosition] = useState({ left: "80%", top: "50%" });
+  const [showAccepted, setShowAccepted] = useState(false);
+  const [showDenied, setShowDenied] = useState(false);
+
+  const handleMouseEnter = () => {
+    const newLeft = Math.random() * 200 + 100;
+    const newTop = Math.random() * 200 + 100;
+    setNoPosition({ left: `${newLeft}%`, top: `${newTop}%` });
+  };
+
+  const handleNoClick = () => setShowDenied(true);
+  const handleYesClick = () => {
+    setShowAccepted(true);
+  };
+  console.log("Code Devaloper by Brownyrollz (BBamz Kittisak Udomsri)");
+  console.log("Website Soure Code: https://github.com/Brownyrollz/you-do-love-me");
+  return (
+    <main className="relative flex flex-col items-center justify-center h-screen bg-pink-100 overflow-hidden">
+
+  <div className="pink-grass">  
+        <div className="flower flower-1" />
+        <div className="flower flower-2" />
+        <div className="flower flower-3" />
+      </div>
+
+      <motion.img
+        src="/bear/bubududu.gif"
+        alt="walking bear"
+        className="absolute bottom-10 left-0 w-32"
+        animate={{ x: [0, 2500] }}
+        transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
+      />
+
+      {!showAccepted && !showDenied && (
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-6">Do you love me?</h1>
+          <img src="/bear/main.gif" alt="Do you love me"></img>
+          <div className="flex gap-6 relative justify-center mr-10 mt-5">
+            <motion.button
+              className="bg-red-400 text-white px-6 py-2 rounded-lg text-lg mr-12 shadow-md  hover:bg-red-500 transition"
+              onClick={handleYesClick}
+            >
+              Yes
+            </motion.button>
+            <motion.button
+              className="bg-red-400 text-white px-6 py-2 rounded-lg text-lg ml-2 shadow-md absolute"
+              onMouseEnter={handleMouseEnter}
+              onClick={handleNoClick}
+              animate={{ left: noPosition.left, top: noPosition.top }}
+              transition={{ type: "spring", stiffness: 200, damping: 5 }}
+              style={{ transform: "translate(-50%, -50%)" }}
+            >
+              No
+            </motion.button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      )}
+      {showAccepted && (
+        <div className="text-center">
+          <img src={randomAcceptedImage} alt="accepted" className="w-48 mx-auto" />
+          <p className="text-lg font-semibold mt-4 text-green-600">I love you too! ❤️</p>
+        </div>
+      )}
+      {showDenied && (
+        <div className="text-center">
+          <img src={randomDeniedImage} alt="denied" className="w-48 mx-auto" />
+          <p className="text-lg font-semibold mt-4 text-red-600">You Dont love me! 😢</p>
+        </div>
+      )}
+    </main>
   );
 }

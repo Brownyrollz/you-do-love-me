@@ -3,19 +3,64 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #f0d7d7;
   --foreground: #171717;
+  cursor: url("/cursor/SweezyCursors.cur"), auto;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  /* cursor: pointer; */
+}
+
+.love-btn {
+  background-color: #ff8a80;
+  color: white;
+}
+
+.accepted-message {
+  text-align: center;
+  font-size: 24px;
+  color: #4caf50;
+}
+
+.accepted-message img {
+  width: 200px;
+  margin-top: 20px;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.pink-grass {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 150px;
+  background-color: #ffc0cb;
+  background-image: linear-gradient(to top, #ffb6c1, #ffdde1);
+  clip-path: polygon(0% 50%, 10% 60%, 20% 45%, 30% 65%, 40% 50%, 50% 60%, 60% 45%, 70% 65%, 80% 50%, 90% 60%, 100% 50%, 100% 100%, 0% 100%);
+}
+.flower {
+  position: absolute;
+  bottom: 30px;
+  width: 25px;
+  height: 25px;
+  background-color: #ff69b4;
+  border-radius: 50%;
+  animation: flowerMove 3s infinite alternate ease-in-out;
+}
+.flower-1 { left: 20%; }
+.flower-2 { left: 50%; }
+.flower-3 { left: 80%; }
+
+@keyframes flowerMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-15px); }
 }
