@@ -96,6 +96,7 @@ export default function Home() {
     setNoPosition({ left: `${newLeft}%`, top: `${newTop}%` });
   };
 
+  const resetClick = () => setShowDenied(false) & setShowAccepted(false); 
   const handleNoClick = () => setShowDenied(true);
   const handleYesClick = () => {
     setShowAccepted(true);
@@ -147,12 +148,20 @@ export default function Home() {
         <div className="text-center">
           <img src={randomAcceptedImage} alt="accepted" className="w-48 mx-auto" />
           <p className="text-lg font-semibold mt-4 text-green-600">I love you too! ❤️</p>
+          <motion.button
+          className="bg-red-400 text-white px-6 py-2 rounded-lg text-lg shadow-md mt-5"
+          onClick={resetClick}
+          >Play Again</motion.button>
         </div>
       )}
       {showDenied && (
         <div className="text-center">
           <img src={randomDeniedImage} alt="denied" className="w-48 mx-auto" />
           <p className="text-lg font-semibold mt-4 text-red-600">You Dont love me! 😢</p>
+          <motion.button
+          className="bg-red-400 text-white px-6 py-2 rounded-lg text-lg shadow-md mt-5"
+          onClick={resetClick}
+          >Play Again</motion.button>
         </div>
       )}
     </main>
